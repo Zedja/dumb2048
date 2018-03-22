@@ -31,44 +31,44 @@ def addNumbers(matrix):
                 matrix[i, j + 1] = 0
     return matrix
 
-def izquierda(matrix):
+def left(matrix):
     matrix = moveNumbers(matrix)
     matrix = addNumbers(matrix)
     return moveNumbers(matrix)
 
-def arriba(matrix):
+def up(matrix):
     matrix = np.rot90(matrix)
     matrix = moveNumbers(matrix)
     matrix = addNumbers(matrix)
     matrix = moveNumbers(matrix)
     return np.rot90(matrix, -1)
 
-def derecha(matrix):
+def right(matrix):
     matrix = np.rot90(matrix, 2)
     matrix = moveNumbers(matrix)
     matrix = addNumbers(matrix)
     matrix = moveNumbers(matrix)
     return np.rot90(matrix, -2)
 
-def abajo(matrix):
+def down(matrix):
     matrix = np.rot90(matrix, -1)
     matrix = moveNumbers(matrix)
     matrix = addNumbers(matrix)
     matrix = moveNumbers(matrix)
     return np.rot90(matrix, 1)
 
-def iniciarTabla(n):
+def initBoard(n):
     return np.zeros((n, n))
 
-def tablaLlena(matrix):
+def isBoardFull(matrix):
     for i in range(4):
         for j in range(4):
             if matrix[i, j] == 0:
                 return False
     return True
 
-def validarJuego(matrix):
-    if tablaLlena(matrix):
+def stillCanMove(matrix):
+    if isBoardFull(matrix):
         for i in range(3):
             for j in range(3):
                 if matrix[i, j] == matrix[i + 1, j]:
@@ -84,7 +84,7 @@ def validarJuego(matrix):
         return False
     return True
 
-board = iniciarTabla(4)
+board = initBoard(4)
 board = addRandom(board)
 board = addRandom(board)
 print("*************************")
@@ -101,16 +101,16 @@ while(True):
 
     if direction == "a":
         print("Your direction was {}".format(direction))
-        board = izquierda(board)
+        board = left(board)
     elif direction == "s":
         print("Your direction was {}".format(direction))
-        board = abajo(board)
+        board = down(board)
     elif direction == "w":
         print("Your direction was {}".format(direction))
-        board = arriba(board)
+        board = up(board)
     elif direction == "d":
         print("Your direction was {}".format(direction))
-        board = derecha(board)
+        board = right(board)
     else:
         agregarNumero = 0
 
@@ -122,7 +122,7 @@ while(True):
         board = addRandom(board)
         print(board)
 
-    if not validarJuego(board):
+    if not stillCanMove(board):
         print("The game has finished")
         print("Want to play again (y/n)?:")
         answer = input()
@@ -133,7 +133,7 @@ while(True):
             answer = input()
 
         if answer == "y":
-            board = iniciarTabla(4)
+            board = initBoard(4)
             board = addRandom(board)
             board = addRandom(board)
             print(board)
