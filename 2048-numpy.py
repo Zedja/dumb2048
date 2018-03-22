@@ -97,7 +97,7 @@ while(True):
     print("Direction: ")
     direction = input()
     lastBoard = board.copy()
-    agregarNumero = 1
+    addNumber = 1
 
     if direction == "a":
         print("Your direction was {}".format(direction))
@@ -112,13 +112,13 @@ while(True):
         print("Your direction was {}".format(direction))
         board = right(board)
     else:
-        agregarNumero = 0
+        addNumber = 0
 
     if np.array_equal(board, lastBoard):
-        print("Movimiento no valido")
-        agregarNumero = 0
+        print("Not a valid move")
+        addNumber = 0
 
-    if agregarNumero == 1:  
+    if addNumber == 1:  
         board = addRandom(board)
         print(board)
 
@@ -138,5 +138,5 @@ while(True):
             board = addRandom(board)
             print(board)
         elif answer == "n":
-            print("ADIOS")
+            print("BYE")
             break
